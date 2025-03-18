@@ -23,15 +23,24 @@ for n in sizes:
     key = random.choice(arr)  # Pick a random element to search
 
     start_time = time.perf_counter()  # High-precision timer
-    binary_search(arr, key, 0, len(arr) - 1)
+    position = binary_search(arr, key, 0, len(arr) - 1)
     end_time = time.perf_counter()  
 
-    times.append((end_time - start_time) * 1e6)  # Convert to microseconds
+    time_taken = end_time - start_time  # Time in seconds
+    times.append(time_taken)
+
+    # Print search result
+    if position != -1:
+        print(f"Search element found at position: {position + 1}")  # Convert to 1-based index
+    else:
+        print("Search element not found.")
+    
+    print(f"Time taken to search: {time_taken:.6f} seconds\n")
 
 # Plot graph
 plt.plot(sizes, times, marker='o', linestyle='-', color='r')
 plt.xlabel("Number of Elements (n)")
-plt.ylabel("Time Taken (µs) (Microseconds)")
+plt.ylabel("Time Taken (seconds)")
 plt.title("Recursive Binary Search: Time vs Number of Elements")
 plt.grid()
 plt.show()
