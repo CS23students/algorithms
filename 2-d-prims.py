@@ -2,29 +2,26 @@ import heapq
 
 def prims_algorithm(graph, start):
     """Finds the Minimum Cost Spanning Tree (MST) using Prim's algorithm."""
-    min_heap = [(0, start)]  # Priority queue: (weight, node)
-    visited = set()  # Track visited nodes
-    mst = []  # Store the MST edges
-    total_cost = 0  # Total cost of MST
+    min_heap = [(0, start, None)]  # (weight, node, parent)
+    visited = set()
+    mst = []
+    total_cost = 0
 
     while min_heap:
-        weight, node = heapq.heappop(min_heap)  # Get the edge with the smallest weight
+        weight, node, parent = heapq.heappop(min_heap)
         if node in visited:
-            continue  # Skip already visited nodes
+            continue
 
-        visited.add(node)  # Mark node as visited
-        total_cost += weight  # Add weight to MST cost
+        visited.add(node)
+        total_cost += weight
+        if parent is not None:
+            mst.append((parent, node, weight))
 
-         if parent is not None:
-            mst.append((parent, node, weight))  # Add edge to MST
-
-        # Add neighbors to heap if not visited
         for neighbor, edge_weight in graph[node].items():
             if neighbor not in visited:
-                heapq.heappush(min_heap, (edge_weight, neighbor))
-                mst.append((node, neighbor, edge_weight))  # Store MST edges
+                heapq.heappush(min_heap, (edge_weight, neighbor, node))
 
-    return mst, total_cost  # Return MST and total cost
+    return mst, total_cost
 
 # Get user input for the graph
 graph = {}
@@ -55,7 +52,6 @@ for u, v, w in mst:
 print("\nTotal Cost of MST:", cost)
 
 
-#  OP:
 # Enter number of nodes: 5
 # Enter number of edges: 7
 # Enter edges with weights:
@@ -67,10 +63,11 @@ print("\nTotal Cost of MST:", cost)
 # C E 6
 # D E 7
 # Enter the start node: A
+
 # Minimum Cost Spanning Tree:
 # A -- B  (2)
 # B -- C  (1)
-# A -- C  (3)
 # C -- D  (4)
+# C -- E  (6)
 
-# Total Cost of MST: 10
+# Total Cost of MST: 13
