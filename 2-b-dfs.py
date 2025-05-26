@@ -1,3 +1,5 @@
+import time
+
 def dfs(graph, node, visited):
     """Performs Depth-First Search on a graph starting from the given node."""
     if node not in visited:
@@ -24,18 +26,30 @@ for _ in range(e):
 start_node = input("Enter the start node for DFS: ")
 
 print("\nDFS Traversal:")
+
+# Measure time taken
+start_time = time.perf_counter()
 dfs(graph, start_node, set())
+end_time = time.perf_counter()
+
+# Display timing and complexity
+print(f"\nTime taken for DFS traversal: {end_time - start_time:.6f} seconds")
+print("Time Complexity of DFS: O(V + E)")
 
 
 
-#  OP
+
 # Enter number of nodes: 5
 # Enter number of edges: 4
-# Enter edges:
+# Enter edges (node1 node2):
 # A B
 # A C
 # B D
 # C E
 # Enter the start node for DFS: A
+
 # DFS Traversal:
 # A B D C E
+# Time taken for DFS traversal: 0.000031 seconds
+# Time Complexity of DFS: O(V + E)
+
