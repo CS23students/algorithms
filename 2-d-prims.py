@@ -15,6 +15,9 @@ def prims_algorithm(graph, start):
         visited.add(node)  # Mark node as visited
         total_cost += weight  # Add weight to MST cost
 
+         if parent is not None:
+            mst.append((parent, node, weight))  # Add edge to MST
+
         # Add neighbors to heap if not visited
         for neighbor, edge_weight in graph[node].items():
             if neighbor not in visited:
